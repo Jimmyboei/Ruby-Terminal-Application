@@ -2,8 +2,8 @@
   {
     "name": "Jim",
     "password": "1234",
-    "goal": 1500,
-    "progress": 0
+    "goal": 1680,
+    "progress": 880
   },
   {
     "name": "Bob",
@@ -16,5 +16,11 @@
     "password": 4567,
     "goal": 1600,
     "progress": 0
+  },
+  {
+    "name": "Bill",
+    "password": "3344",
+    "goal": "1300",
+    "progress": 400
   }
 ]

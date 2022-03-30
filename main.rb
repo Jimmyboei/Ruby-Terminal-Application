@@ -51,8 +51,12 @@ end
 
 def exit_app
     puts "Thanks for using Daily Calories Tracker! See you later!"
-    exit
 end
+
+# def save_data(user, allusers)
+#     allusers << user
+#     File.write('userdata.json', JSON.pretty_generate(allusers))
+# end
 
 def menu_choice(user)
     prompt = TTY::Prompt.new
@@ -68,6 +72,7 @@ def menu_choice(user)
             adjust_goal(user)
         when choices[3]
             exit_app
+            break
         end
     end
 end
@@ -121,6 +126,9 @@ else
 end
 
 menu_choice(current_user)
+# write user data back to json file
+File.write('userdata.json', JSON.pretty_generate(userdata))
+
 
 # original way for menu options without using method
 # loop do
