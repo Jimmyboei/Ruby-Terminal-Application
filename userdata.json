@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Jim",
+    "password": "1234",
+    "goal": 1500,
+    "progress": 0
+  },
+  {
+    "name": "Bob",
+    "password": "2345",
+    "goal": 1400,
+    "progress": 0
+  },
+  {
+    "name": "John",
+    "password": 4567,
+    "goal": 1600,
+    "progress": 0
+  }
+]
