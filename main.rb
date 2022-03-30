@@ -105,9 +105,9 @@ if all_user_names.include? answer
     end
     # password check
     begin
-        answer2 = prompt.ask("Hi #{answer}, please enter your password")
-        if answer2 == current_user[:password]
-            puts "Welcome back!"
+        if current_user[:password] == prompt.ask("Hi #{answer}, please enter your password")
+            puts "Welcome back #{answer}!"
+            puts "Your current progress is #{current_user[:progress]}/#{current_user[:goal]} calories"
         else
             raise "Wrong password! Please try again"
         end
@@ -116,8 +116,8 @@ if all_user_names.include? answer
         retry
     end
 else
-    newname = prompt.ask("New user? register a new user name")
-    newpassword = prompt.ask("Please enter a password")
+    newname = prompt.ask("New user? register a new user name:")
+    newpassword = prompt.ask("Please enter a password:")
     newgoal = prompt.ask("What is your daily goal?")
     puts "Welcome #{newname}!"
     current_user = { name: newname, password: newpassword, goal: newgoal, progress: 0 }
