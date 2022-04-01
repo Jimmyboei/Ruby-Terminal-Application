@@ -22,6 +22,7 @@ userdata = JSON.load_file('userdata.json', symbolize_names: true)
 # p userdata[0]
 # p userdata[0][:name]
 
+
 # set an array to store all user names for checkup
 all_user_names = []
 userdata.each do |i|
