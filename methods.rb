@@ -32,16 +32,16 @@ def adjust_goal(user)
     answer = prompt.ask("Please enter your new daily goal", convert: :int)
     user[:goal] = answer
     puts "Daily goal adjusted, your new goal is #{answer} calories"
-    answer2 = prompt.yes?("Do you want more actions?")
-    exit_app unless answer2
+    prompt.keypress("Press anykey to continue")
 end
 
 def exit_app
     puts "Thanks for using Daily Calories Tracker! See you later!"
 end
 
-def welcome_message
-end
+# def welcome_message(username, _usergoal)
+#     puts "Welcome back #{username}!"
+# end
 
 # def save_data(user, allusers)
 #     allusers << user

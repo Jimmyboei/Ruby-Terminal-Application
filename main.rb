@@ -22,7 +22,6 @@ userdata = JSON.load_file('userdata.json', symbolize_names: true)
 # p userdata[0]
 # p userdata[0][:name]
 
-
 # set an array to store all user names for checkup
 all_user_names = []
 userdata.each do |i|
@@ -44,7 +43,9 @@ if all_user_names.include? answer
     end
     # password check
     begin
-        if current_user[:password] == prompt.ask("Hi #{answer}, please enter your password")
+        password = prompt.ask("Hi #{answer}, please enter your password")
+        # check_password( current_user, password)
+        if current_user[:password] == password
             puts "Welcome back #{answer}!"
             puts "Your current progress is #{current_user[:progress]}/#{current_user[:goal]} calories"
         else
@@ -58,6 +59,7 @@ else
     newname = prompt.ask("New user? register a new user name:")
     newpassword = prompt.ask("Please enter a password:")
     newgoal = prompt.ask("What is your daily goal?")
+    # create_new_user()
     puts "Welcome #{newname}!"
     current_user = { name: newname, password: newpassword, goal: newgoal, progress: 0 }
     userdata << current_user
