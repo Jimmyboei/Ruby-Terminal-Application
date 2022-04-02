@@ -1,6 +1,21 @@
 require "json"
 require "tty-prompt"
 
+# custom exception for password check
+class InvalidPasswordError < StandardError
+    def message
+        return "Wrong password! Please try again"
+    end
+end
+
+# check password of current user
+def check_password(user, password)
+    raise InvalidPasswordError unless user[:password] == password
+
+    puts "Welcome back #{user[:name]}!"
+    puts "Your current progress is #{user[:progress]}/#{user[:goal]}calories" 
+end
+
 # methods for menu options
 def food_intake(user)
     prompt = TTY::Prompt.new
@@ -39,7 +54,7 @@ def exit_app
     puts "Thanks for using Daily Calories Tracker! See you later!"
 end
 
-# def welcome_message(username, _usergoal)
+# def welcome_message(username, usergoal)
 #     puts "Welcome back #{username}!"
 # end
 

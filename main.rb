@@ -22,37 +22,31 @@ userdata = JSON.load_file('userdata.json', symbolize_names: true)
 # p userdata[0]
 # p userdata[0][:name]
 
-# set an array to store all user names for checkup
+# create an array to store all user names for checkup
 all_user_names = []
 userdata.each do |i|
     all_user_names << i[:name]
 end
 
-# set a hash to store details of user using the app
+# create a hash to store details of user using the app
 current_user = {}
 
-# user login process
-answer = prompt.ask("What is your name?")
-if all_user_names.include? answer
-    # set current_user to this user
+# existing user varification 
+name = prompt.ask("What is your name?")
+if all_user_names.include? name
+    # get user details
     userdata.each do |i|
-        if i[:name] == answer
+        if i[:name] == name
             current_user = i
             # p current_user
         end
     end
     # password check
     begin
-        password = prompt.ask("Hi #{answer}, please enter your password")
-        # check_password( current_user, password)
-        if current_user[:password] == password
-            puts "Welcome back #{answer}!"
-            puts "Your current progress is #{current_user[:progress]}/#{current_user[:goal]} calories"
-        else
-            raise "Wrong password! Please try again"
-        end
-    rescue => e
-        puts e
+        password = prompt.ask("Hi #{name}, please enter your password")
+        check_password(current_user, password)
+    rescue InvalidPasswordError => e
+        puts e.message
         retry
     end
 else
