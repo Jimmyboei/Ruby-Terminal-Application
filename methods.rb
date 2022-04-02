@@ -78,7 +78,8 @@ def adjust_goal(user)
     prompt.keypress("Press anykey to continue")
 end
 
-def exit_app
+def save_and_exit(data)
+    File.write('userdata.json', JSON.pretty_generate(data))
     puts "Thanks for using Daily Calories Tracker! See you later!"
 end
 
@@ -104,7 +105,6 @@ def menu_choice(user)
         when choices[2]
             adjust_goal(user)
         when choices[3]
-            exit_app
             break
         end
     end
