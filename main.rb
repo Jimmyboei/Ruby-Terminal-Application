@@ -50,12 +50,9 @@ if all_user_names.include? name
         retry
     end
 else
-    newname = prompt.ask("New user? register a new user name:")
-    newpassword = prompt.ask("Please enter a password:")
-    newgoal = prompt.ask("What is your daily goal?")
-    # create_new_user()
-    puts "Welcome #{newname}!"
-    current_user = { name: newname, password: newpassword, goal: newgoal, progress: 0 }
+    current_user = new_user_registration
+    puts "Welcome to the Daily Calorie Tracker #{current_user[:name]}! "
+    puts "Keep an eye for your calories intake and enjoy a healthier life!"
     userdata << current_user
     File.write('userdata.json', JSON.pretty_generate(userdata))
 end

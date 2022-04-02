@@ -8,12 +8,40 @@ class InvalidPasswordError < StandardError
     end
 end
 
+# custom exception for new user registration
+class InvalidNameError < StandardError
+    def message
+        return "Wrong password! Please try again"
+    end
+end
+
 # check password of current user
 def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
 
     puts "Welcome back #{user[:name]}!"
     puts "Your current progress is #{user[:progress]}/#{user[:goal]}calories" 
+end
+
+# create a new user
+def new_user_registration
+    prompt = TTY::Prompt.new
+    new_user = prompt.collect do
+        key(:name).ask("Please enter a user name:") do |q|
+            q.required(true, "user name cannot be empty")
+        end
+
+        key(:password).ask("Please enter a password:") do |q|
+            q.required(true, "Password cannot be empty")
+        end
+
+        key(:goal).ask("What is your daily calorie goal?") do |q|
+        q.validate(/^[1-9]\d*$/)
+        q.messages[:valid?] = "Please enter only number greater than zero"
+        end
+    end
+    new_user[:progress] = 0
+    return new_user
 end
 
 # methods for menu options
