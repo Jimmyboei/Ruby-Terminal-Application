@@ -34,5 +34,15 @@
       "pear": 100,
       "milk": 100
     }
+  },
+  {
+    "name": "Dim",
+    "password": "1234",
+    "goal": "1500",
+    "progress": 0,
+    "intakes": {
+    },
+    "workouts": {
+    }
   }
 ]

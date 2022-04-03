@@ -34,6 +34,8 @@ def new_user_registration
         end
     end
     new_user[:progress] = 0
+    new_user[:intakes] = {}
+    new_user[:workouts] = {}
     return new_user
 end
 
