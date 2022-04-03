@@ -5,6 +5,9 @@ require "tty-table"
 def help_info
     puts "Welcome to the Daily Calorie Tracker"
     puts "In here you can set your calorie goals and track your progress"
+    puts "Simply put your details to sign up and set a daily goal"
+    puts "You can return later to log in and check your daily progress"
+    puts " "
 end
 
 # custom exception for password check
