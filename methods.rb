@@ -1,5 +1,6 @@
 require "json"
 require "tty-prompt"
+require "tty-table"
 
 # custom exception for password check
 class InvalidPasswordError < StandardError
@@ -36,6 +37,11 @@ def new_user_registration
     new_user[:intakes] = {}
     new_user[:workouts] = {}
     return new_user
+end
+
+def keypress
+    prompt = TTY::Prompt.new
+    prompt.keypress("Press anykey to continue")
 end
 
 # record each food intake from user input
@@ -81,6 +87,20 @@ def workout(user)
     end
 end
 
+# create all user activities in a table
+def display_activity_table(user_activity, header1, header2)
+    table = TTY::Table[[header1, header2]]
+    user_activity.each do |name, calorie|
+        table << [name, calorie]
+    end
+    puts table.render(:ascii)
+end
+
+def view_activity(user)
+    display_activity_table(user[:intakes], "Food", "Calorie Intake")
+    display_activity_table(user[:workouts], "Workout", "Calorie Burned")
+end
+
 def reset_calorie_progress(user)
     prompt = TTY::Prompt.new
     user[:progress] = 0
@@ -107,21 +127,12 @@ def save_and_exit(data)
     puts "Thanks for using Daily Calories Tracker! See you later!"
 end
 
-# def welcome_message(username, usergoal)
-#     puts "Welcome back #{username}!"
-# end
-
-# def save_data(user, allusers)
-#     allusers << user
-#     File.write('userdata.json', JSON.pretty_generate(allusers))
-# end
-
 def menu_choice(user)
     prompt = TTY::Prompt.new
     loop do
         system 'clear'
         puts "Hi #{user[:name]}, your current progress is #{user[:progress]}/#{user[:goal]}calories"
-        choices = ["Add Food Intake", "Add Workout", "Reset Current Progress", "Adjust Goal", "Exit"]
+        choices = ["Add Food Intake", "Add Workout", "View Activities", "Reset Current Progress", "Adjust Goal", "Exit"]
         selected = prompt.select("Please select from following options", choices, cycle: true)
         case selected
         when choices[0]
@@ -129,10 +140,15 @@ def menu_choice(user)
         when choices[1]
             workout(user)
         when choices[2]
-            reset_calorie_progress(user)
+            system "clear"
+            display_activity_table(user[:intakes], "Food", "Calories Intake")
+            display_activity_table(user[:workouts], "Workout", "Calories Burned")
+            keypress
         when choices[3]
-            adjust_goal(user)
+            reset_calorie_progress(user)
         when choices[4]
+            adjust_goal(user)
+        when choices[5]
             break
         end
     end

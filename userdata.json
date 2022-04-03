@@ -42,9 +42,12 @@
     "progress": 200,
     "intakes": {
       "apple": 100,
-      "Pear": 100
+      "Pear": 100,
+      "chicken": 300
     },
     "workouts": {
+      "rowing": 100,
+      "running": 200
     }
   }
 ]

@@ -1,6 +1,7 @@
 require "json"
 require "tty-prompt"
 require "./methods"
+require "tty-table"
 
 prompt = TTY::Prompt.new
 
