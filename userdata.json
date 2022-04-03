@@ -38,7 +38,7 @@
   {
     "name": "Dim",
     "password": "1234",
-    "goal": "1500",
+    "goal": 1500,
     "progress": 200,
     "intakes": {
       "apple": 100,

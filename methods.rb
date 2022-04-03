@@ -39,7 +39,8 @@ def new_user_registration
     return new_user
 end
 
-def keypress
+# let user to stay on current page and continue by pressing any keys
+def press_anykey_to_continue
     prompt = TTY::Prompt.new
     prompt.keypress("Press anykey to continue")
 end
@@ -102,12 +103,11 @@ def view_activity(user)
 end
 
 def reset_calorie_progress(user)
-    prompt = TTY::Prompt.new
     user[:progress] = 0
     user[:intakes] = {}
     user[:workouts] = {}
     puts "Your current calorie progress has been reset"
-    prompt.keypress("Press anykey to continue")
+    press_anykey_to_continue
 end
 
 def adjust_goal(user)
@@ -119,14 +119,10 @@ def adjust_goal(user)
     end
     user[:goal] = answer.to_i
     puts "Daily goal adjusted, your new goal is #{answer} calories"
-    prompt.keypress("Press anykey to continue")
+    press_anykey_to_continue
 end
 
-def save_and_exit(data)
-    File.write('userdata.json', JSON.pretty_generate(data))
-    puts "Thanks for using Daily Calories Tracker! See you later!"
-end
-
+# main menu
 def menu_choice(user)
     prompt = TTY::Prompt.new
     loop do
@@ -143,7 +139,7 @@ def menu_choice(user)
             system "clear"
             display_activity_table(user[:intakes], "Food", "Calories Intake")
             display_activity_table(user[:workouts], "Workout", "Calories Burned")
-            keypress
+            press_anykey_to_continue
         when choices[3]
             reset_calorie_progress(user)
         when choices[4]
@@ -153,3 +149,10 @@ def menu_choice(user)
         end
     end
 end
+
+# write user data back to json file
+def save_and_exit(data)
+    File.write('userdata.json', JSON.pretty_generate(data))
+    puts "Thanks for using Daily Calories Tracker! See you later!"
+end
+
