@@ -82,6 +82,15 @@ def workout(user)
     end
 end
 
+def reset_calorie_progress(user)
+    prompt = TTY::Prompt.new
+    user[:progress] = 0
+    user[:intakes] = {}
+    user[:workouts] = {}
+    puts "Your current calorie progress has been reset"
+    prompt.keypress("Press anykey to continue")
+end
+
 def adjust_goal(user)
     prompt = TTY::Prompt.new
     puts "Your current goal is #{user[:goal]} calories"
@@ -111,7 +120,7 @@ end
 def menu_choice(user)
     prompt = TTY::Prompt.new
     loop do
-        choices = ["Add food intake", "Add workouts", "Adjust goals", "Exit"]
+        choices = ["Add Food Intake", "Add Workout", "Reset Current Progress", "Adjust Goal", "Exit"]
         selected = prompt.select("Please select from following options", choices, cycle: true)
         case selected
         when choices[0]
@@ -119,8 +128,10 @@ def menu_choice(user)
         when choices[1]
             workout(user)
         when choices[2]
-            adjust_goal(user)
+            reset_calorie_progress(user)
         when choices[3]
+            adjust_goal(user)
+        when choices[4]
             break
         end
     end
