@@ -39,8 +39,9 @@
     "name": "Dim",
     "password": "1234",
     "goal": "1500",
-    "progress": 0,
+    "progress": 100,
     "intakes": {
+      "apple": 100
     },
     "workouts": {
     }

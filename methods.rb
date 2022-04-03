@@ -39,18 +39,26 @@ def new_user_registration
     return new_user
 end
 
+# record each food intake from user input
 def intake_log(user, food, calorie)
     user[:intakes][food] = calorie
+end
+
+# record each workout from user input
+def workout_log(user, workout, calorie)
+    user[:intakes][workout] = calorie
 end
 
 # methods for menu options
 def food_intake(user)
     prompt = TTY::Prompt.new
     loop do
-        answer = prompt.ask("How many calories in your food?", convert: :int)
-        user[:progress] += answer
-        food = prompt.ask("What food did you eat")
-        intake_log(user, food, answer)
+        food_name = prompt.ask("Please enter the food name:") do |q|
+        q.required(true, "Food name cannot be empty")
+        end
+        food_calorie = prompt.ask("How many calories in your food?", convert: :int)
+        user[:progress] += food_calorie
+        intake_log(user, food_name, food_calorie)
         puts "Intake added!"
         puts "Today you have #{user[:progress]}/#{user[:goal]} calories so far"
         answer2 = prompt.yes?("Do you want to add more intake?")
