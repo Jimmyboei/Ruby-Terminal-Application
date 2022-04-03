@@ -1,6 +1,7 @@
 require "json"
 require "tty-prompt"
-require "./methods"
+require "./login_methods"
+require "./menu_methods"
 require "tty-table"
 
 prompt = TTY::Prompt.new
@@ -19,25 +20,21 @@ end
 # get all saved user details
 userdata = JSON.load_file('userdata.json', symbolize_names: true)
 
-# p userdata
-# p userdata[0]
-# p userdata[0][:name]
-
 # create an array to store all user names for checkup
 all_user_names = []
-userdata.each do |i|
-    all_user_names << i[:name]
+userdata.each do |user|
+    all_user_names << user[:name]
 end
 
 # create a hash to store details of user using the app
 current_user = {}
 
 # existing user varification
-name = prompt.ask("Welcome to the Daily Calorie Tracker, please enter your name:")
-if all_user_names.include? name
+input = prompt.ask("Welcome to the Daily Calorie Tracker, please enter your name:")
+if all_user_names.include? input
     # get user details
     userdata.each do |i|
-        if i[:name] == name
+        if i[:name] == input
             current_user = i
             # p current_user
         end
@@ -55,9 +52,7 @@ else
     username = new_name_check(all_user_names)
     userdetails = user_registration
     current_user = username.merge!(userdetails)
-    puts "Sign up succesful!"
-    puts "Welcome to the Daily Calorie Tracker #{current_user[:name]}! "
-    puts "Keep an eye for your calories intake and enjoy a healthier life!"
+    welcome_message(current_user)
     userdata << current_user
     File.write('userdata.json', JSON.pretty_generate(userdata))
 end
@@ -65,4 +60,3 @@ end
 press_anykey_to_continue
 menu_choice(current_user)
 save_and_exit(userdata)
-
