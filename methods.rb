@@ -26,8 +26,9 @@ end
 # check if the new user name already exists
 def new_name_check(allnames)
     prompt = TTY::Prompt.new
+    puts "User name cannot be found"
     begin
-        new_name = prompt.ask("Please enter a user name:") do |q|
+        new_name = prompt.ask("Please sign up and store your details by entering your name:") do |q|
             q.required(true, "user name cannot be empty")
         end
         raise ExistingNameError if allnames.include? new_name

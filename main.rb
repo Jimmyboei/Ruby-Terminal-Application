@@ -33,7 +33,7 @@ end
 current_user = {}
 
 # existing user varification
-name = prompt.ask("What is your name?")
+name = prompt.ask("Welcome to the Daily Calorie Tracker, please enter your name:")
 if all_user_names.include? name
     # get user details
     userdata.each do |i|
@@ -51,9 +51,11 @@ if all_user_names.include? name
         retry
     end
 else
+    # new user sign up
     username = new_name_check(all_user_names)
     userdetails = user_registration
     current_user = username.merge!(userdetails)
+    puts "Sign up succesful!"
     puts "Welcome to the Daily Calorie Tracker #{current_user[:name]}! "
     puts "Keep an eye for your calories intake and enjoy a healthier life!"
     userdata << current_user
