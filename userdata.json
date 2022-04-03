@@ -2,44 +2,25 @@
   {
     "name": "Jim",
     "password": "1234",
-    "goal": 1500,
-    "progress": 500,
+    "goal": 1600,
+    "progress": 0,
     "intakes": {
-      "beef": 300,
-      "chicken": 400,
-      "pork": 300
     },
     "workouts": {
-      "rowing": 100,
-      "running": 300,
-      "walk": 100
     }
   },
   {
-    "name": "Kim",
-    "password": "3344",
-    "goal": "1300",
-    "progress": 500,
-    "intakes": {
-      "fish": 100,
-      "apple": 200,
-      "pear": 100,
-      "milk": 100
-    }
-  },
-  {
-    "name": "Dim",
-    "password": "1234",
-    "goal": 1500,
-    "progress": 200,
+    "name": "John",
+    "password": "5678",
+    "goal": 1400,
+    "progress": 350,
     "intakes": {
       "apple": 100,
-      "Pear": 100,
-      "chicken": 300
+      "beef": 500
     },
     "workouts": {
       "rowing": 100,
-      "running": 200
+      "running": 150
     }
   }
 ]

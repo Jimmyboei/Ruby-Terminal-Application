@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ruby ./main.rb
+ruby ~/T1A3/main.rb

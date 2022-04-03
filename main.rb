@@ -15,8 +15,6 @@ userdata.each do |user|
     all_user_names << user[:name]
 end
 
-# puts "Hi #{ARGV[0]}"if all_user_names.include? ARGV[0]
-# create a hash to store details of user using the app
 current_user = {}
 
 # existing user varification

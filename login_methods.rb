@@ -24,16 +24,6 @@ class ExistingNameError < StandardError
     end
 end
 
-# pull all user names from json file
-# def read_from_file(file)
-#     userdata = JSON.load_file(file, symbolize_names: true)
-#     details = []
-#     userdata.each do |i|
-#         details << i[:name]
-#     end
-#     return details
-# end
-
 # check password of current user
 def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
