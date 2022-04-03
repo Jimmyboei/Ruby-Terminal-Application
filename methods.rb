@@ -20,7 +20,7 @@ def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
 
     puts "Welcome back #{user[:name]}!"
-    puts "Your current progress is #{user[:progress]}/#{user[:goal]}calories" 
+    puts "Your current progress is #{user[:progress]}/#{user[:goal]}calories"
 end
 
 # create a new user
