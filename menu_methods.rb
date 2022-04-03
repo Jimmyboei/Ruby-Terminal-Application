@@ -13,7 +13,7 @@ def workout_log(user, workout, calorie)
     user[:workouts][workout] = calorie
 end
 
-# methods for menu options
+# user input for calories intake and this will increase the daily progress
 def food_intake(user)
     prompt = TTY::Prompt.new
     loop do
@@ -30,11 +30,12 @@ def food_intake(user)
     end
 end
 
+# user input for calories burned and this will reduce the daily progress
 def workout(user)
     prompt = TTY::Prompt.new
     loop do
         workout_name = prompt.ask("Please enter the workout name:") do |q|
-        q.required(true, "Food name cannot be empty")
+        q.required(true, "Workout name cannot be empty")
         end
         workout_calorie = prompt.ask("How many calories did you burn in your workout?", convert: :int)
         user[:progress] -= workout_calorie
@@ -55,6 +56,7 @@ def display_activity_table(user_activity, header1, header2)
     puts table.render(:ascii)
 end
 
+# reset the user's calorie progress to zero
 def reset_calorie_progress(user)
     user[:progress] = 0
     user[:intakes] = {}
@@ -63,19 +65,20 @@ def reset_calorie_progress(user)
     press_anykey_to_continue
 end
 
+# allow users to adjust their daily calorie goal
 def adjust_goal(user)
     prompt = TTY::Prompt.new
     puts "Your current goal is #{user[:goal]} calories"
-    answer = prompt.ask("Please enter your new daily calorie goal:") do |q|
+    new_goal = prompt.ask("Please enter your new daily calorie goal:") do |q|
         q.validate(/^[1-9]\d*$/)
         q.messages[:valid?] = "Please enter only number greater than zero"
     end
-    user[:goal] = answer.to_i
-    puts "Daily goal adjusted, your new goal is #{answer} calories"
+    user[:goal] = new_goal.to_i
+    puts "Daily goal adjusted, your new goal is #{new_goal} calories"
     press_anykey_to_continue
 end
 
-# main menu
+# main menu with all options
 def menu_choice(user)
     prompt = TTY::Prompt.new
     loop do
@@ -108,4 +111,3 @@ def save_and_exit(data)
     File.write('userdata.json', JSON.pretty_generate(data))
     puts "Thanks for using Daily Calories Tracker! See you later!"
 end
-

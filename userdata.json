@@ -2,15 +2,17 @@
   {
     "name": "Jim",
     "password": "1234",
-    "goal": 1600,
-    "progress": 300,
+    "goal": 1500,
+    "progress": 500,
     "intakes": {
       "beef": 300,
-      "chicken": 400
+      "chicken": 400,
+      "pork": 300
     },
     "workouts": {
       "rowing": 100,
-      "running": 300
+      "running": 300,
+      "walk": 100
     }
   },
   {
@@ -38,16 +40,6 @@
     "workouts": {
       "rowing": 100,
       "running": 200
-    }
-  },
-  {
-    "name": "Bili",
-    "password": "1234",
-    "goal": "1555",
-    "progress": 0,
-    "intakes": {
-    },
-    "workouts": {
     }
   }
 ]

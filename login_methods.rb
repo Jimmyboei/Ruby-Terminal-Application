@@ -5,7 +5,6 @@ require "tty-table"
 def help_info
     puts "Welcome to the Daily Calorie Tracker"
     puts "In here you can set your calorie goals and track your progress"
-
 end
 
 # custom exception for password check
@@ -81,7 +80,7 @@ def welcome_message(user)
     puts "Keep an eye for your calories intake and enjoy a healthier life!"
 end
 
-# let user to stay on current page and continue by pressing any keys
+# let user to stay on current page then continue by pressing any keys
 def press_anykey_to_continue
     prompt = TTY::Prompt.new
     prompt.keypress("Press anykey to continue")

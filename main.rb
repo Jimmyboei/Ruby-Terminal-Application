@@ -4,19 +4,6 @@ require "./login_methods"
 require "./menu_methods"
 require "tty-table"
 
-prompt = TTY::Prompt.new
-
-# Class for user data in hash
-class User
-    attr_accessor :name, :password, :goal
-
-    def initialize(hash)
-        self.name = hash[:name]
-        self.password = hash[:password]
-        self.goal = hash[:goal]
-    end
-end
-
 # get all saved user details
 userdata = JSON.load_file('userdata.json', symbolize_names: true)
 
@@ -30,18 +17,18 @@ end
 current_user = {}
 
 # existing user varification
+prompt = TTY::Prompt.new
 input = prompt.ask("Welcome to the Daily Calorie Tracker, please enter your name:")
 if all_user_names.include? input
     # get user details
     userdata.each do |i|
         if i[:name] == input
             current_user = i
-            # p current_user
         end
     end
-    # password check
+    # return user password check
     begin
-        password = prompt.ask("Hi #{name}, please enter your password:")
+        password = prompt.ask("Hi #{input}, please enter your password:")
         check_password(current_user, password)
     rescue InvalidPasswordError => e
         puts e.message
@@ -57,6 +44,8 @@ else
     File.write('userdata.json', JSON.pretty_generate(userdata))
 end
 
+# process to main menu
 press_anykey_to_continue
 menu_choice(current_user)
+# save changes back to json and exit the app
 save_and_exit(userdata)
