@@ -45,6 +45,7 @@ if all_user_names.include? name
     begin
         password = prompt.ask("Hi #{name}, please enter your password:")
         check_password(current_user, password)
+        prompt.keypress("Press anykey to continue")
     rescue InvalidPasswordError => e
         puts e.message
         retry

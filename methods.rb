@@ -13,7 +13,6 @@ def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
 
     puts "Welcome back #{user[:name]}!"
-    puts "Your current progress is #{user[:progress]}/#{user[:goal]}calories"
 end
 
 # create a new user
@@ -120,6 +119,8 @@ end
 def menu_choice(user)
     prompt = TTY::Prompt.new
     loop do
+        system 'clear'
+        puts "Hi #{user[:name]}, your current progress is #{user[:progress]}/#{user[:goal]}calories"
         choices = ["Add Food Intake", "Add Workout", "Reset Current Progress", "Adjust Goal", "Exit"]
         selected = prompt.select("Please select from following options", choices, cycle: true)
         case selected
