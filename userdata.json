@@ -13,8 +13,8 @@
   },
   {
     "name": "John",
-    "password": 4567,
-    "goal": 1600,
+    "password": "4567",
+    "goal": 1700,
     "progress": 0
   },
   {
@@ -27,6 +27,12 @@
     "name": "Kim",
     "password": "3344",
     "goal": "1300",
-    "progress": 0
+    "progress": 500,
+    "intakes": {
+      "fish": 100,
+      "apple": 200,
+      "pear": 100,
+      "milk": 100
+    }
   }
 ]

@@ -8,13 +8,6 @@ class InvalidPasswordError < StandardError
     end
 end
 
-# custom exception for new user registration
-class InvalidNameError < StandardError
-    def message
-        return "Wrong password! Please try again"
-    end
-end
-
 # check password of current user
 def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
@@ -44,12 +37,18 @@ def new_user_registration
     return new_user
 end
 
+def intake_log(user, food, calorie)
+    user[:intakes][food] = calorie
+end
+
 # methods for menu options
 def food_intake(user)
     prompt = TTY::Prompt.new
     loop do
         answer = prompt.ask("How many calories in your food?", convert: :int)
         user[:progress] += answer
+        food = prompt.ask("What food did you eat")
+        intake_log(user, food, answer)
         puts "Intake added!"
         puts "Today you have #{user[:progress]}/#{user[:goal]} calories so far"
         answer2 = prompt.yes?("Do you want to add more intake?")
@@ -72,8 +71,11 @@ end
 def adjust_goal(user)
     prompt = TTY::Prompt.new
     puts "Your current goal is #{user[:goal]} calories"
-    answer = prompt.ask("Please enter your new daily goal", convert: :int)
-    user[:goal] = answer
+    answer = prompt.ask("Please enter your new daily calorie goal:") do |q|
+        q.validate(/^[1-9]\d*$/)
+        q.messages[:valid?] = "Please enter only number greater than zero"
+    end
+    user[:goal] = answer.to_i
     puts "Daily goal adjusted, your new goal is #{answer} calories"
     prompt.keypress("Press anykey to continue")
 end
