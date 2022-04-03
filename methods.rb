@@ -46,7 +46,7 @@ end
 
 # record each workout from user input
 def workout_log(user, workout, calorie)
-    user[:intakes][workout] = calorie
+    user[:workouts][workout] = calorie
 end
 
 # methods for menu options
@@ -61,20 +61,24 @@ def food_intake(user)
         intake_log(user, food_name, food_calorie)
         puts "Intake added!"
         puts "Today you have #{user[:progress]}/#{user[:goal]} calories so far"
-        answer2 = prompt.yes?("Do you want to add more intake?")
-        break unless answer2
+        add_more_intake = prompt.yes?("Do you want to add more intake?")
+        break unless add_more_intake
     end
 end
 
 def workout(user)
     prompt = TTY::Prompt.new
     loop do
-        answer = prompt.ask("How many calories did you burn in your workout?", convert: :int)
-        user[:progress] -= answer
+        workout_name = prompt.ask("Please enter the workout name:") do |q|
+        q.required(true, "Food name cannot be empty")
+        end
+        workout_calorie = prompt.ask("How many calories did you burn in your workout?", convert: :int)
+        user[:progress] -= workout_calorie
+        workout_log(user, workout_name, workout_calorie)
         puts "workout added"
         puts "Today you have #{user[:progress]}/#{user[:goal]} calories so far"
-        answer2 = prompt.yes?("Do you want to add more workout?")
-        break unless answer2
+        add_more_workout = prompt.yes?("Do you want to add more workout?")
+        break unless add_more_workout
     end
 end
 
