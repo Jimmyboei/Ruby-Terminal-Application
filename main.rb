@@ -46,19 +46,21 @@ if all_user_names.include? name
     begin
         password = prompt.ask("Hi #{name}, please enter your password:")
         check_password(current_user, password)
-        press_anykey_to_continue
     rescue InvalidPasswordError => e
         puts e.message
         retry
     end
 else
-    current_user = new_user_registration
+    username = new_name_check(all_user_names)
+    userdetails = user_registration
+    current_user = username.merge!(userdetails)
     puts "Welcome to the Daily Calorie Tracker #{current_user[:name]}! "
     puts "Keep an eye for your calories intake and enjoy a healthier life!"
     userdata << current_user
     File.write('userdata.json', JSON.pretty_generate(userdata))
 end
 
+press_anykey_to_continue
 menu_choice(current_user)
 save_and_exit(userdata)
 

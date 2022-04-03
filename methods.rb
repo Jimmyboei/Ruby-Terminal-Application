@@ -9,6 +9,13 @@ class InvalidPasswordError < StandardError
     end
 end
 
+# custom exception for existing user name
+class ExistingNameError < StandardError
+    def message
+        return "User name already exists, please enter a different name"
+    end
+end
+
 # check password of current user
 def check_password(user, password)
     raise InvalidPasswordError unless user[:password] == password
@@ -16,14 +23,26 @@ def check_password(user, password)
     puts "Welcome back #{user[:name]}!"
 end
 
-# create a new user
-def new_user_registration
+# check if the new user name already exists
+def new_name_check(allnames)
     prompt = TTY::Prompt.new
-    new_user = prompt.collect do
-        key(:name).ask("Please enter a user name:") do |q|
+    begin
+        new_name = prompt.ask("Please enter a user name:") do |q|
             q.required(true, "user name cannot be empty")
         end
+        raise ExistingNameError if allnames.include? new_name
+    rescue ExistingNameError => e
+        puts e.message
+        retry
+    end
+    username = { name: new_name }
+    return username
+end
 
+# create a new user
+def user_registration
+    prompt = TTY::Prompt.new
+    new_user = prompt.collect do
         key(:password).ask("Please enter a password:") do |q|
             q.required(true, "Password cannot be empty")
         end
